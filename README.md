@@ -1,15 +1,15 @@
-# UAV Collision Detection
+# Detection de collisions pour drones
 
-Detection de collisions entre 10000 drones.
-Tri par X + fenetre glissante = O(N log N).
+Detection des collisions entre 10000 drones.
+Tri par X + fenetre glissante.
 
 ## Compilation
 make
 
 ## Execution
-./collision_system
+make run
 
 ## Contraintes respectees
-- Pas de crochets []
-- Allocation dynamique unique
-- Arithmetique des pointeurs pure
+- pas de crochets []
+- allocation unique
+- pointeurs seulement
