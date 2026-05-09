@@ -3,10 +3,9 @@
 #include <stdio.h>
 #include <math.h>
 
-// compare deux drones selon leur X (utilisée par qsort)
-static int compare_by_x(const void* a, const void* b) {
+// compare deux drones selon leur X (utilisee par qsort)
+static int comparer_par_x(const void* a, const void* b) {
     float diff = ((Drone*)a)->x - ((Drone*)b)->x;
-    // (diff>0)-(diff<0) donne -1, 0 ou 1 à partir d'un float
     return (diff > 0) - (diff < 0);
 }
 
@@ -19,18 +18,18 @@ static float distance(Drone* a, Drone* b) {
 }
 
 // allocation d'un seul bloc contigu pour tous les drones
-Drone* create_swarm(int N) {
-    Drone* swarm = (Drone*)malloc(N * sizeof(Drone));
-    if (swarm == NULL) {
+Drone* creer_essaim(int N) {
+    Drone* essaim = (Drone*)malloc(N * sizeof(Drone));
+    if (essaim == NULL) {
         fprintf(stderr, "Erreur allocation\n");
         exit(1);
     }
-    return swarm;
+    return essaim;
 }
 
 // initialisation des positions (sans crochets, uniquement des pointeurs)
-void init_swarm(Drone* swarm, int N) {
-    Drone* ptr = swarm;
+void init_essaim(Drone* essaim, int N) {
+    Drone* ptr = essaim;
     for (int i = 0; i < N; i++) {
         ptr->id = i;
         ptr->x = (float)(rand() % 10000) / 10.0f;
@@ -40,18 +39,18 @@ void init_swarm(Drone* swarm, int N) {
     }
 }
 
-// detection des collisions : tri par X + fenêtre glissante
-void detect_collisions(Drone* swarm, int N, float seuil) {
+// detection des collisions : tri par X + fenetre glissante
+void detecter_collisions(Drone* essaim, int N, float seuil) {
     // on trie d'abord par X
-    qsort(swarm, N, sizeof(Drone), compare_by_x);
+    qsort(essaim, N, sizeof(Drone), comparer_par_x);
     
-    Drone* courant = swarm;
-    Drone* fin = swarm + N;      // pointe après le dernier drone
+    Drone* courant = essaim;
+    Drone* fin = essaim + N;
     
     while (courant < fin) {
         Drone* suivant = courant + 1;
         
-        // fenêtre glissante : on compare tant que l'écart en X < seuil
+        // fenetre glissante : on compare tant que l'ecart en X < seuil
         while (suivant < fin && (suivant->x - courant->x) < seuil) {
             if (distance(courant, suivant) < seuil) {
                 printf("Collision drone %d <-> %d (dist=%.2f m)\n",
@@ -64,6 +63,6 @@ void detect_collisions(Drone* swarm, int N, float seuil) {
 }
 
 // liberation de la memoire
-void free_swarm(Drone* swarm) {
-    free(swarm);
+void liberer_essaim(Drone* essaim) {
+    free(essaim);
 }
