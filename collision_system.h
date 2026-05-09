@@ -3,22 +3,22 @@
 
 // structure d'un drone
 typedef struct {
-    int id;      // numéro unique du drone
-    float x;     // coordonnée X
-    float y;     // coordonnée Y
+    int id;      // numero unique du drone
+    float x;     // coordonnee X
+    float y;     // coordonnee Y
     float z;     // altitude
 } Drone;
 
-// alloue la mémoire pour N drones (un seul bloc contigu)
-Drone* create_swarm(int N);
+// alloue la memoire pour N drones (un seul bloc contigu)
+Drone* creer_essaim(int N);
 
-// initialise les positions avec des valeurs aléatoires
-void init_swarm(Drone* swarm, int N);
+// initialise les positions avec des valeurs aleatoires
+void init_essaim(Drone* essaim, int N);
 
-// détecte toutes les collisions (tri par X + fenêtre glissante)
-void detect_collisions(Drone* swarm, int N, float seuil);
+// detecte toutes les collisions (tri par X + fenetre glissante)
+void detecter_collisions(Drone* essaim, int N, float seuil);
 
-// libère la mémoire
-void free_swarm(Drone* swarm);
+// libere la memoire
+void liberer_essaim(Drone* essaim);
 
 #endif
